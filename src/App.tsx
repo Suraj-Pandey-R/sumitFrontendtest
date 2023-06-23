@@ -51,7 +51,7 @@ useEffect(() => {
     sessionStorage.setItem('state', stateid);
     window.location.href =
       'https://api.digitallocker.gov.in/public/oauth2/1/authorize?response_type=code&client_id=IAE3E4C164&state=' +
-      stateid +'&redirect_uri=https://first.d1ds8gytdtrzs9.amplifyapp.com/call&code_challange=t07mY2BqQEv91nWiLzI9ij79idL8cQjxywyIe-PW4WI';
+      stateid +'&redirect_uri=https://first.d1ds8gytdtrzs9.amplifyapp.com/call&code_challange=t07mY2BqQEv91nWiLzI9ij79idL8cQjxywyIe-PW4WI&code_challenge_method=S256';
 
     // }
   }
