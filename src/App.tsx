@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const handleUrlChange = () => {
       fetchData();
-      if(window.location.pathname === `${redirect_url}call`)
+      if (window.location.pathname === `${redirect_url}call`)
         alert("callback")
       else alert(window.location.pathname)
       // Your code logic here
@@ -36,6 +36,15 @@ function App() {
       window.removeEventListener('popstate', handleUrlChange);
     };
   }, []);
+  const handleRedirect = () => {
+    var stateid = 'signup' + Math.random().toString(36).substring(7);
+    sessionStorage.setItem('state', stateid);
+    window.location.href =
+        'https://api.digitallocker.gov.in/public/oauth2/1/authorize?response_type=code&client_id=IAE3E4C164&state=' +
+        stateid +
+        '';
+  }
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -43,14 +52,13 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
+        <button
           className="App-link"
-          href={`https://api.digitallocker.gov.in/public/oauth2/1/authorize?response_type=code&client_id=IAE3E4C164&redirect_uri=${redirect_url}call&state=abcd1234`}
-          target="_blank"
+          onClick={handleRedirect}
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </button>
       </header>
     </div>
   );
