@@ -6,6 +6,9 @@ function App() {
   const redirect_url = window.location.pathname;
   const [data, setData] = useState(window.location.pathname);
 
+  
+
+
   const fetchData = async () => {
     try {
       const response = await fetch('https://api.example.com/data'); // Replace with your API endpoint
@@ -18,17 +21,19 @@ function App() {
       console.error(error);
     }
   };
+
+  
 useEffect(() => {
   console.log("===", data)
 }, [data])
   const handleUrlChange = () => {
     // fetchData();
-    if (window.location.pathname === `${redirect_url}call`) {
+    if (window.location.pathname === `/call`) {
       alert("callback")
     }
     else alert(window.location.pathname)
     // Your code logic here
-    console.log('URL has changed:', window.location.pathname);
+    console.log('URL has changed:', window.location);
   };
 
   useEffect(() => {
@@ -46,7 +51,7 @@ useEffect(() => {
     sessionStorage.setItem('state', stateid);
     window.location.href =
       'https://api.digitallocker.gov.in/public/oauth2/1/authorize?response_type=code&client_id=IAE3E4C164&state=' +
-      stateid +'&redirect_uri=https://first.d1ds8gytdtrzs9.amplifyapp.com/call';
+      stateid +'&redirect_uri=https://first.d1ds8gytdtrzs9.amplifyapp.com/call&code_challange=t07mY2BqQEv91nWiLzI9ij79idL8cQjxywyIe-PW4WI';
 
     // }
   }
