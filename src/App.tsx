@@ -22,19 +22,41 @@ function App() {
     }
   };
 
-  function extractCodeValue(url: string) {
-    const urlObj = new URL(url);
-    const searchParams = new URLSearchParams(urlObj.search);
-    return searchParams.get("code");
+  function extractCodeValue(url: string): string {
+    if (!url || url === "/") {
+      // If URL is empty or only "/"
+      console.log("Invalid URL: Missing 'code' parameter");
+    }
+  
+    let codeValue = null;
+    try {
+      const urlObj = new URL(url);
+      const searchParams = new URLSearchParams(urlObj.search);
+      codeValue = searchParams.get("code");
+    } catch (error) {
+      // If URL is invalid
+      console.log("Invalid URL: Failed to parse");
+    }
+  
+    // Validate and handle corner cases
+    if (!codeValue) {
+      // If "code" parameter is not present
+      console.log("Invalid URL: Missing 'code' parameter");
+    }
+  
+    // Optionally, you can further validate the codeValue format if needed
+    // For example, check if it matches a specific pattern or length
+  
+    return codeValue ?? "";
   }
 
 
-
   useEffect(() => {
+    console.log(data, "===data")
+  
     const code = extractCodeValue(data);
-    if(code)
-      fetchData(code);
-    console.log("===", extractCodeValue(data))
+    code && fetchData(code);
+    
   }, [data])
   const handleUrlChange = () => {
     // fetchData();
