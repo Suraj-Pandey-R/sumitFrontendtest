@@ -6,12 +6,12 @@ function App() {
   const redirect_url = window.location.pathname;
   const [data, setData] = useState(window.location.pathname);
 
-  
 
 
-  const fetchData = async () => {
+
+  const fetchData = async (code: string) => {
     try {
-      const response = await fetch('https://api.example.com/data'); // Replace with your API endpoint
+      const response = await fetch(`http://kyc.ryz.market:5001/api/v1?code_challenge=3da3d2e35557537d9b5104acab842204cb6b0242ec0a1b121a60b58c&code=${code}`); // Replace with your API endpoint
       if (!response.ok) {
         throw new Error('Request failed');
       }
@@ -22,10 +22,20 @@ function App() {
     }
   };
 
-  
-useEffect(() => {
-  console.log("===", data)
-}, [data])
+  function extractCodeValue(url: string) {
+    const urlObj = new URL(url);
+    const searchParams = new URLSearchParams(urlObj.search);
+    return searchParams.get("code");
+  }
+
+
+
+  useEffect(() => {
+    const code = extractCodeValue(data);
+    if(code)
+      fetchData(code);
+    console.log("===", extractCodeValue(data))
+  }, [data])
   const handleUrlChange = () => {
     // fetchData();
     if (window.location.pathname === `/call`) {
@@ -51,13 +61,14 @@ useEffect(() => {
     sessionStorage.setItem('state', stateid);
     window.location.href =
       'https://api.digitallocker.gov.in/public/oauth2/1/authorize?response_type=code&client_id=IAE3E4C164&state=' +
-      stateid +'&redirect_uri=https://first.d1ds8gytdtrzs9.amplifyapp.com/call&code_challenge=t07mY2BqQEv91nWiLzI9ij79idL8cQjxywyIe-PW4WI&code_challenge_method=S256';
+      stateid + '&redirect_uri=https://first.d1ds8gytdtrzs9.amplifyapp.com/call&code_challenge=fATlfGDnUcIJC7poHD_UOU_yxZgicUj6rhk3WhFB1Ow&code_challenge_method=S256';
 
     // }
   }
 
   return (
     <div className="App">
+      <p>version 1.0.0</p>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
