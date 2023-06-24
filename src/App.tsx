@@ -5,13 +5,14 @@ import './App.css';
 function App() {
   const redirect_url = window.location.pathname;
   const [data, setData] = useState(window.location.pathname);
+  const [url, setUrl] = useState("http://13.200.34.167:5001/api/v1");
 
 
-
+console.log(url, "url")
 
   const fetchData = async (code: string) => {
     try {
-      const response = await fetch(`http://kyc.ryz.market:5001/api/v1?code_challenge=3da3d2e35557537d9b5104acab842204cb6b0242ec0a1b121a60b58c&code=${code}`); // Replace with your API endpoint
+      const response = await fetch(`${url}?code_challenge=3da3d2e35557537d9b5104acab842204cb6b0242ec0a1b121a60b58c&code=${code}`); // Replace with your API endpoint
       if (!response.ok) {
         throw new Error('Request failed');
       }
@@ -92,6 +93,7 @@ function App() {
     <div className="App">
       <p>version 1.0.0</p>
       <header className="App-header">
+        <input onChange={(e) => setUrl(e.target.value)} value={url}/>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
