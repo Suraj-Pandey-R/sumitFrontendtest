@@ -49,14 +49,6 @@ function App() {
     return codeValue ?? "";
   }
 
-
-  useEffect(() => {
-
-    const code = extractCodeValue(data);
-    code && fetchData(code);
-
-  }, [data])
-
   const handleRedirect = () => {
     var stateid = 'rmsign' + Math.random().toString(36).substring(7);
     sessionStorage.setItem('state', stateid);
@@ -73,7 +65,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <label>URL</label>
+        <label>URL:</label>
         <input onChange={(e) => setUrl(e.target.value)} value={url} />
         <label>Challenger</label>
         <input value={code_challenge} onChange={(e) => setCode_Challenge(e.target.value)} />
