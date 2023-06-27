@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   const [data, setData] = useState(window.location.href);
-  const [url, setUrl] = useState("http://13.200.34.167:5001/api/v1");
+  const [url, setUrl] = useState("https://kyc.algonly.com:5001/server-0.0.1-SNAPSHOT/api/v1/start");
   const [code_challenge, setCode_Challenge] = useState('fATlfGDnUcIJC7poHD_UOU_yxZgicUj6rhk3WhFB1Ow')
   const [verifier, setVerifier] = useState("3da3d2e35557537d9b5104acab842204cb6b0242ec0a1b121a60b58c")
 
@@ -26,7 +26,7 @@ function App() {
       // If URL is empty or only "/"
       console.log("Invalid URL: Missing 'code' parameter", url);
     }
-  
+
     let codeValue = null;
     try {
       const urlObj = new URL(url);
@@ -36,46 +36,27 @@ function App() {
       // If URL is invalid
       console.log("Invalid URL: Failed to parse", url);
     }
-  
+
     // Validate and handle corner cases
     if (!codeValue) {
       // If "code" parameter is not present
       console.log("Invalid URL: Missing 'code' parameter", url);
     }
-  
+
     // Optionally, you can further validate the codeValue format if needed
     // For example, check if it matches a specific pattern or length
-  
+
     return codeValue ?? "";
   }
 
 
   useEffect(() => {
-  
+
     const code = extractCodeValue(data);
     code && fetchData(code);
-    
+
   }, [data])
-  const handleUrlChange = () => {
-    // fetchData();
-    if (window.location.pathname === `/call`) {
-      alert("callback")
-    }
-    else alert(window.location.pathname)
-    // Your code logic here
-    console.log('URL has changed:', window.location);
-  };
 
-  useEffect(() => {
-
-
-    window.addEventListener('locationchange', handleUrlChange);
-
-    // Clean up the event listener
-    return () => {
-      window.removeEventListener('locationchange', handleUrlChange);
-    };
-  }, []);
   const handleRedirect = () => {
     var stateid = 'rmsign' + Math.random().toString(36).substring(7);
     sessionStorage.setItem('state', stateid);
@@ -85,16 +66,20 @@ function App() {
 
     // }
   }
-
+  const handleApiClick = () => {
+    const code = extractCodeValue(data);
+    code && fetchData(code);
+  }
   return (
     <div className="App">
       <header className="App-header">
         <label>URL</label>
-        <input onChange={(e) => setUrl(e.target.value)} value={url}/>
+        <input onChange={(e) => setUrl(e.target.value)} value={url} />
         <label>Challenger</label>
-        <input value={code_challenge} onChange={(e) => setCode_Challenge(e.target.value)}/>
+        <input value={code_challenge} onChange={(e) => setCode_Challenge(e.target.value)} />
         <label>Verifier</label>
-        <input value={verifier} onChange={(e) => setVerifier(e.target.value)}/>
+        <input value={verifier} onChange={(e) => setVerifier(e.target.value)} />
+        <button onClick={handleApiClick}>hit api</button>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
