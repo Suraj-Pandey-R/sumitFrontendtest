@@ -98,7 +98,7 @@ function App() {
         {
           headers: {
             Authorization: `Bearer ${tokenData?.bearer ?? ""}`,
-            "Access-Control-Allow-Origin": "https://digilocker.meripehchaan.gov.in"
+            "Access-Control-Allow-Origin": "https://first.d1ds8gytdtrzs9.amplifyapp.com/call"
           },
         }
       );
