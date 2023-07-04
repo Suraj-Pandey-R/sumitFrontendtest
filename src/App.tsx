@@ -73,7 +73,7 @@ function App() {
   const handleFetchToken = async () => {
     try {
       const response = await fetch(
-        `https://941c0edd-41b1-490a-8598-ea6a1aad9446.mock.pstmn.io/getdata`
+        `https://kyc.algonly.com:5001/server-0.0.1-SNAPSHOT/api/v1/takedata`
       );
       if (!response.ok) {
         throw new Error("Request failed");
