@@ -98,6 +98,7 @@ function App() {
         {
           headers: {
             Authorization: `Bearer ${tokenData?.bearer ?? ""}`,
+            "Access-Control-Allow-Origin": "*"
           },
         }
       );
